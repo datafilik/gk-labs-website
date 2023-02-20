@@ -6,7 +6,7 @@ JOBS = [{
   'id': 1,
   'title': 'Embedded Software Engineer',
   'location': 'Surrey, UK',
-  'salary': '£30,000'
+  'salary': '£35,000'
 }, {
   'id': 2,
   'title': 'Python Developer',
