@@ -27,7 +27,7 @@ JOBS = [{
 @flskApp.route("/")
 def hello_world():
   # return "<p>Hello, Viki!</p>"
-  return render_template('home.html', jobs=JOBS, company_name='VikiWerks')
+  return render_template('home.html', jobs=JOBS, company_name='Gutenkraft')
 
 
 @flskApp.route("/api/jobs")
