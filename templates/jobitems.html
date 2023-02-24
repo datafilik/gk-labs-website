@@ -1,14 +1,27 @@
-<div class="row border-bottom" style="margin-bottom:16px;padding-bottom:8px;">
+<div class="row border-bottom lead" style="margin-bottom:16px;padding-bottom:8px;">
   <div class="col-9">
     <h4 style="color:rgb(120, 120, 120); margin-bottom:4px;">
       {{job['title']}}
     </h4>
     <div>
-      <b>Location:</b> {{job['location']}}
+      <b>Location:</b> {{ job['location'] }}
     </div>
+    
     {% if 'salary' in job %}
     <div>
-      <b>Salary:</b> {{job['salary']}}
+      <b>Salary:</b> {{ job['currency'] }} {{ job['salary'] }}
+    </div>
+    {% endif %}
+    
+    {% if 'responsibilities' in job %}
+    <div>
+      <b>Responsibilities:</b> {{ job['responsibilities'] }}
+    </div>
+    {% endif %}
+    
+    {% if 'requirements' in job %}
+    <div>
+      <b>Requirements:</b> {{ job['requirements'] }}
     </div>
     {% endif %}
   </div>
