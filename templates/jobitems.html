@@ -1,4 +1,4 @@
-<div class="row border-bottom lead" style="margin-bottom:16px;padding-bottom:8px;">
+<div class="row border-bottom" style="margin-bottom:16px;padding-bottom:8px;">
   <div class="col-9">
     <h4 style="color:rgb(120, 120, 120); margin-bottom:4px;">
       {{job['title']}}
@@ -12,21 +12,11 @@
       <b>Salary:</b> {{ job['currency'] }} {{ job['salary'] }}
     </div>
     {% endif %}
-    
-    {% if 'responsibilities' in job %}
-    <div>
-      <b>Responsibilities:</b> {{ job['responsibilities'] }}
-    </div>
-    {% endif %}
-    
-    {% if 'requirements' in job %}
-    <div>
-      <b>Requirements:</b> {{ job['requirements'] }}
-    </div>
-    {% endif %}
   </div>
   <div class="col-3">
     <!-- <button type="button" class="btn btn-outline-primary">Apply</button> -->
-    <a href="mailto:peope@gutenkraft.com?subject=Application%20for%20{{job['title']}}&body=Name%3A%20%3Cyour%20full%20name%3E%0D%0AResume%20link%3A%20%3Cresume%20link%20URL%3E%0D%0ALinkedIn%20profile%3A%20%3CLinkedIn%20profile%20URL%3E" type="button" class="btn btn-outline-primary float-right align-middle">Apply</a>
+    <!--     <a href="mailto:peope@gutenkraft.com?subject=Application%20for%20{{job['title']}}&body=Name%3A%20%3Cyour%20full%20name%3E%0D%0AResume%20link%3A%20%3Cresume%20link%20URL%3E%0D%0ALinkedIn%20profile%3A%20%3CLinkedIn%20profile%20URL%3E" type="button" class="btn btn-outline-primary float-right align-middle">Apply</a> -->
+
+    <a href="/job/{{job['id']}}" type="button" class="btn btn-outline-primary float-right align-middle">Apply</a>
   </div>
 </div>
