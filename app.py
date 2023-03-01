@@ -25,6 +25,15 @@ def show_job(id):
   return render_template('jobpage.html', job=job)
 
 
+@gkLabsApp.route("/api/job/<id>")
+def get_job_data(id):
+  job = load_job_from_db(id)
+  if not job:
+    return "Not Found", 404
+
+  return jsonify(job)
+
+
 @gkLabsApp.route("/job/<id>/apply", methods=['post'])
 def apply_for_job(id):
   data = request.form  # request.args used for GET requests
