@@ -8,15 +8,20 @@ jobs = load_jobs_from_db()  # job list
 
 @gkLabsApp.route("/")
 def home():
-  return render_template('home.html', jobs=jobs)
+  return render_template('home.html')
 
 
-@gkLabsApp.route("/api/jobs")
+@gkLabsApp.route("/careers")
+def career():
+  return render_template('careers.html', jobs=jobs)
+
+
+@gkLabsApp.route("/api/careers/jobs")
 def list_jobs():
   return jsonify(jobs)
 
 
-@gkLabsApp.route("/job/<id>")
+@gkLabsApp.route("/careers/job/<id>")
 def show_job(id):
   job = load_job_from_db(id)
   if not job:
@@ -25,7 +30,7 @@ def show_job(id):
   return render_template('jobpage.html', job=job)
 
 
-@gkLabsApp.route("/api/job/<id>")
+@gkLabsApp.route("/api/careers/job/<id>")
 def get_job_data(id):
   job = load_job_from_db(id)
   if not job:
@@ -34,7 +39,7 @@ def get_job_data(id):
   return jsonify(job)
 
 
-@gkLabsApp.route("/job/<id>/apply", methods=['post'])
+@gkLabsApp.route("/careers/job/<id>/apply", methods=['post'])
 def apply_for_job(id):
   data = request.form  # request.args used for GET requests
   job = load_job_from_db(id)
