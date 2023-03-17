@@ -13,23 +13,31 @@
     <div class="row" style="margin-bottom:16px;">
       <div class="col-md-6">
         <p class="lead">
-          Roles at Gutenkraft revolve around seven operational focus areas (Ops) that are considered essential to meeting objectives of projects. Each op consists of a grouping of talents/skills specfic to the it and would serve as in-house sounding-board that players in each project can consult or enlist. Expertise and skills developed or mustered in each ops unit, would occassionaly work in concert towards implementing solutions for specific problem of focus in a Gutenkraft project. The number of ops may be updated from time to time depending on org wide focus and development of new expertise. These includes
+          We have seven operational focus areas (Ops) that are considered essential to meeting the objectives of our projects. Each op consists of a group of expertise specfic to it. Job roles listed here would often be associated with one of the unit. Find out more about each unit and get a sense of  what we are looking for.
         </p>
+        <div class="text-center">
+            <a href="/about" type="button" class="btn btn-outline-dark align-middle">Explore Gutenkraft Ops ></a>
+        </div>
       </div>
+      
       <div class="d-none d-md-block col-md-6">
         <img class="img-fluid" src="/static/people.jpg" style="height:320px;border-radius:4px;">
       </div>
     </div>
     
-    <h2 class="text-center mt-2 mb-4">Gutenkraft Ops</h2>
-    {% include 'opslist.html' %}
+<!--     <h2 class="text-center mt-2 mb-4">Gutenkraft Ops</h2>
+    {% include 'opslist.html' %} -->
     
     <h2 class="text-center mt-2 mb-4">Latest Job Openings</h2>
     <div>
       <!--{{jobs}} -->
-      {% for job in jobs %}
-        {% include 'jobitems.html' %}
-      {% endfor %}
+      {% if jobs|length %}
+        {% for job in jobs %}
+          {% include 'jobitems.html' %}
+        {% endfor %}
+      {% else %}
+        {% include 'nojobitems.html'%}
+      {% endif %}
     </div>
     <div class="text-center">
       <!--<button class="btn btn-primary btn-lg">Contact Us</button> -->

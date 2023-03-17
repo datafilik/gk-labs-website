@@ -6,7 +6,8 @@
   </head>
   <body>
     {% include 'header.html' %}
-    {% include 'careersbanner.html' %}
+    <!--  about page banner -->
+    <img class="img-fluid" id ="banner-pic" src="/static/about_banner.PNG" style="width: 100%; height: 360px; object-fit: cover; margin-bottom: 16px;">
     <div class="container">
       
       <h1 class="text-center mt-2 mb-4">What is Gutenkraft?</h1>
@@ -27,6 +28,12 @@
     			To produce affordable and sustainable world class infrastructure technology solutions on a large scale.
     		</em>
     	</p>
+
+      <h2 class="text-center mt-2 mb-4">Gutenkraft Ops</h2>
+      <p class="lead">
+          We have seven operational focus areas (Ops) that we consider essential to our objectives and projects. Each op consists of a grouping of talents/skills specfic to it and which serve as in-house sounding-board that players in each project consult or enlist in. Expertise from various ops unit, would occassionally work in concert towards implementing solutions for specific problem of focus in a Gutenkraft project. The number of ops may be updated from time to time depending on org wide focus and development of new expertise. Explore each op  unit below.
+      </p>
+      {% include 'opslist.html' %}
       
     </div>
     {% include 'footer.html' %}
