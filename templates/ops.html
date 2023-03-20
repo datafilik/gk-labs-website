@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% include 'headcontent.html' %}
+    <title>Gutenkraft - Reimagining Infrastructure Technology, Inspiring Development.</title>
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <!--  ops page banner -->
+    <img class="img-fluid" id ="banner-pic" src="/static/hitech_machinary.PNG" style="width: 100%; height: 360px; object-fit: cover; margin-bottom: 16px;">
+      
+    <div class="container">
+      <h1 class="text-center mt-2 mb-4">Gutenkraft Ops</h1>
+      <p class="lead">
+          Want to contribute to gutenkraft labs but you're not sure how? Explore one of our seven operational focus areas (Ops) and see how you can help with implementing solutions for specific problems at the heart of Gutenkraft projects. The number of ops may be updated from time to time depending on org wide focus and development of new expertise. Explore each op  unit below.
+      </p>
+      {% include 'opslist.html'%}
+      
+    </div>
+        {% include 'footer.html' %}
+  </body>
+</html>
