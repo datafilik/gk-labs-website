@@ -2,3 +2,7 @@ Flask
 gunicorn
 sqlalchemy
 pymysql
+openai
+gTTS
+python-dotenv
+pygame

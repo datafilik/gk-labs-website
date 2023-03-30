@@ -1,7 +1,12 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect, url_for
+from werkzeug.utils import secure_filename
 from database import load_jobs_from_db, load_job_from_db, add_application_to_db
+from kai import process_prompt
+import os
 
 gkLabsApp = Flask(__name__)
+# limit the maximum allowed payload to 16 megabytes
+gkLabsApp.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
 jobs = load_jobs_from_db()  # job list
 
@@ -21,9 +26,57 @@ def resources():
   return render_template('resources.html')
 
 
-@gkLabsApp.route("/careers")
-def career():
-  return render_template('careers.html', jobs=jobs)
+# for transcript text
+convo_text = ''
+# # audio prompt file and text prompt
+# audio_prompt_path = ''
+# text_prompt = ''
+# # path to audio response
+# audio_resp_path = os.path.join(gkLabsApp.static_folder, "out.mp3")
+
+
+@gkLabsApp.route("/resources/kai", methods=['GET'])
+def kai_home():
+  global convo_text
+
+  return render_template(
+    'kai.html',
+    transcript=convo_text,
+  )
+
+
+@gkLabsApp.route("/resources/kai/prompt_processor", methods=['POST'])
+def kai_process_prompt():
+
+  global convo_text  #audio_prompt_path, text_prompt, audio_resp_path
+
+  if request.method == 'POST':
+    # prompt handles
+    audio_prompt_path = ''
+    text_prompt = ''
+    # path to audio response
+    audio_resp_path = os.path.join(gkLabsApp.static_folder, "out.mp3")
+
+    # get prompt
+    if len(request.form.getlist('text')):
+      # other text prompt
+      text_prompt = request.form.getlist('text')  #list
+      #text_prompt = request.form.get('text')
+    else:
+      # get audio prompt
+      file = request.files['audio']
+
+      if file:
+        audiofilename = secure_filename(file.filename)
+        audio_prompt_path = os.path.join(gkLabsApp.static_folder,
+                                         audiofilename)
+        file.save(audio_prompt_path)
+
+    # get AI response to either text or audio prompt
+    convo_text = process_prompt(audio_prompt_path, text_prompt,
+                                audio_resp_path)
+
+  return redirect(url_for('kai_home'))
 
 
 @gkLabsApp.route("/about")
@@ -31,9 +84,9 @@ def about():
   return render_template('about.html')
 
 
-@gkLabsApp.route("/api/careers/jobs")
-def list_jobs():
-  return jsonify(jobs)
+@gkLabsApp.route("/careers")
+def career():
+  return render_template('careers.html', jobs=jobs)
 
 
 @gkLabsApp.route("/careers/job/<id>")
@@ -41,17 +94,7 @@ def show_job(id):
   job = load_job_from_db(id)
   if not job:
     return "Not Found", 404
-
   return render_template('jobpage.html', job=job)
-
-
-@gkLabsApp.route("/api/careers/job/<id>")
-def get_job_data(id):
-  job = load_job_from_db(id)
-  if not job:
-    return "Not Found", 404
-
-  return jsonify(job)
 
 
 @gkLabsApp.route("/careers/job/<id>/apply", methods=['post'])
@@ -60,6 +103,19 @@ def apply_for_job(id):
   job = load_job_from_db(id)
   add_application_to_db(id, data)  # store application data to database
   return render_template('applicationsubmitted.html', form_data=data, job=job)
+
+
+@gkLabsApp.route("/api/careers/jobs")
+def list_jobs():
+  return jsonify(jobs)
+
+
+@gkLabsApp.route("/api/careers/job/<id>")
+def get_job_data(id):
+  job = load_job_from_db(id)
+  if not job:
+    return "Not Found", 404
+  return jsonify(job)
 
 
 @gkLabsApp.route("/ops")
