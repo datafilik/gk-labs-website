@@ -8,6 +8,8 @@ from gtts import gTTS
 from pygame import mixer
 from dotenv import load_dotenv
 
+os.environ['SDL_AUDIODRIVER'] = 'pulseaudio'
+
 # load environment variable from .env file
 load_dotenv()
 
