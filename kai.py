@@ -2,13 +2,10 @@
 # KAI - Utility for sourcing knowledge using AI.
 #       Base functions and utlities for KAI.
 ########################################################################################
-# import requests
-# import random
-# import json
+import os
 import openai
 from gtts import gTTS
 from pygame import mixer
-import os
 from dotenv import load_dotenv
 
 # load environment variable from .env file
