@@ -5,10 +5,7 @@
 import os
 import openai
 from gtts import gTTS
-from pygame import mixer
 from dotenv import load_dotenv
-
-os.environ['SDL_AUDIODRIVER'] = 'pulseaudio'
 
 # load environment variable from .env file
 load_dotenv()
@@ -79,24 +76,6 @@ def get_transcript(msg_thread):
 def gTranslate_tts(text, audio_out_path):
   gtts_eng = gTTS(text, lang="en", tld="co.uk")
   gtts_eng.save(audio_out_path)
-  # play_sound(audio_out_path)
-
-
-#-----------------------------------------------------------------------------------------
-# Functions for handing sound file playback
-#-----------------------------------------------------------------------------------------
-# initialize module for loading and playing sounds
-mixer.init()
-
-
-def play_sound(sound_file):
-  # input - sound_file specifies path to sound file in string
-  mixer.music.load(sound_file)
-  mixer.music.play()
-
-
-def stop_sound_gracefully():
-  mixer.music.fadeout(2)
 
 
 #------------------------------------------------------------------------------------------
