@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from database import load_jobs_from_db, load_job_from_db, add_application_to_db
-from kai import process_prompt
+from kaito import process_prompt
 import os
 
 gkLabsApp = Flask(__name__)
@@ -29,18 +29,18 @@ def resources():
 # for transcript text
 convo_text = ''
 
-@gkLabsApp.route("/resources/kai", methods=['GET'])
-def kai_home():
+@gkLabsApp.route("/resources/kaito", methods=['GET'])
+def kaito_home():
   global convo_text
 
   return render_template(
-    'kai.html',
+    'kaito.html',
     transcript=convo_text,
   )
 
 
-@gkLabsApp.route("/resources/kai/prompt_processor", methods=['POST'])
-def kai_process_prompt():
+@gkLabsApp.route("/resources/kaito/prompt_processor", methods=['POST'])
+def kaito_process_prompt():
 
   global convo_text
 
@@ -70,7 +70,7 @@ def kai_process_prompt():
     convo_text = process_prompt(audio_prompt_path, text_prompt,
                                 audio_resp_path)
 
-  return redirect(url_for('kai_home'))
+  return redirect(url_for('kaito_home'))
 
 
 @gkLabsApp.route("/about")
