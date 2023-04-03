@@ -28,12 +28,6 @@ def resources():
 
 # for transcript text
 convo_text = ''
-# # audio prompt file and text prompt
-# audio_prompt_path = ''
-# text_prompt = ''
-# # path to audio response
-# audio_resp_path = os.path.join(gkLabsApp.static_folder, "out.mp3")
-
 
 @gkLabsApp.route("/resources/kai", methods=['GET'])
 def kai_home():
@@ -48,7 +42,7 @@ def kai_home():
 @gkLabsApp.route("/resources/kai/prompt_processor", methods=['POST'])
 def kai_process_prompt():
 
-  global convo_text  #audio_prompt_path, text_prompt, audio_resp_path
+  global convo_text
 
   if request.method == 'POST':
     # prompt handles
