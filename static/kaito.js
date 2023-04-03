@@ -134,7 +134,7 @@ function discardRecording() {
 };
 
 async function postPromptData(data) {
-  const response = await fetch("/resources/kai/prompt_processor", {
+  const response = await fetch("/resources/kaito/prompt_processor", {
     method: "POST",
     body: data,
   })
