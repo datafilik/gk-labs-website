@@ -1,3 +1,6 @@
+// for ReactJS usage
+// import { createRoot } from 'react-dom/client';
+
 // const mediaRecorder = new MediaRecorder(stream);
 const recordBtn = document.getElementById('audioInput');
 const recordBtnText = recordBtn.firstElementChild;
@@ -23,8 +26,41 @@ const recordBtnStopView = `
     <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" /> 
 </svg >
 Record Prompt`;
+//----------------------------------------------------------------------
+// App component
+//----------------------------------------------------------------------
+// export default function kaito(){
+  
+// }
 
+// function kaitoFormElem(params) {
+//   return(
+    
+//   )
+// }
 
+// function getReponseButton({onClick}) {
+//   return(
+//     <button onClick={onClick} className="btn btn-dark btn-lg rounded-pill" id="getReponseBtn">
+//       Get Response
+//     </button>
+//   );
+// }
+// const domBtnNode = document.getElementById('getResponseDiv');
+// const root = createRoot(domBtnNode);
+// root.render(<getReponseButton onClick={processInputPrompt}/>);
+
+// function Button({ onClick, children }) {
+//   return (
+//     <button onClick={onClick}>
+//       {children}
+//     </button>
+//   );
+// }
+
+//------------------------------------------------------------------------
+// media functions
+//------------------------------------------------------------------------
 function record(){
     //check if browser supports getUserMedia
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -133,6 +169,9 @@ function discardRecording() {
   queryInputText.removeAttribute('readonly')
 };
 
+//----------------------------------------------------------------------
+// input query processing functions
+//----------------------------------------------------------------------
 async function postPromptData(data) {
   const response = await fetch("/resources/kaito/prompt_processor", {
     method: "POST",

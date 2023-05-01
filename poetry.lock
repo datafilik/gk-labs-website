@@ -128,7 +128,7 @@ test = ["objgraph", "psutil"]
 
 [[package]]
 name = "gtts"
-version = "2.3.1"
+version = "2.3.2"
 description = "gTTS (Google Text-to-Speech), a Python library and CLI tool to interface with Google Translate text-to-speech API"
 category = "main"
 optional = false
@@ -217,14 +217,6 @@ python-versions = "*"
 
 [package.extras]
 test = ["numpy"]
-
-[[package]]
-name = "pygame"
-version = "2.3.0"
-description = "Python Game Development"
-category = "main"
-optional = false
-python-versions = ">=3.6"
 
 [[package]]
 name = "python-dotenv"
@@ -357,7 +349,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "431c36964cae03505d66a17e7308bf3fd20b4ec8df7b451e836c76034fd11b2d"
+content-hash = "9181b07b67a62325d04be8c91ee502aa8c3fd04f205fcc200864a71a6d34a9af"
 
 [metadata.files]
 aiohttp = []
@@ -379,7 +371,6 @@ markupsafe = []
 multidict = []
 openai = []
 pyaudio = []
-pygame = []
 python-dotenv = []
 requests = []
 sqlalchemy = []
