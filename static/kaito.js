@@ -115,22 +115,24 @@ function mediaRecorderStop() {
         recordedAudioContainer.firstElementChild.remove();
     }
     //create a new audio element that will hold the recorded audio
-    const audioTag = document.createElement('audio');
-    audioTag.setAttribute('controls', ''); //add controls
+    const promptAudioElem = document.createElement('audio');
+    promptAudioElem.setAttribute('controls', ''); //add controls
+    promptAudioElem.setAttribute('id', 'recordedAudioPrompt');
+  
     //create the Blob from the chunks
     audioBlob = new Blob(chunks, { type: 'audio/mp3' });
     const audioURL = window.URL.createObjectURL(audioBlob);
-    audioTag.src = audioURL;
+    promptAudioElem.src = audioURL;
 
     // if audio recorded, disable text input
     if (audioBlob != null){
         queryInputText.setAttribute('readonly','')
     }
-
+    
 
     //show audio
-    // recordedAudioContainer.insertBefore(audioTag, recordedAudioContainer.firstElementChild);
-    recordedAudioContainer.appendChild(audioTag);
+    // recordedAudioContainer.insertBefore(promptAudioElem, recordedAudioContainer.firstElementChild);
+    recordedAudioContainer.appendChild(promptAudioElem);
     recordedAudioContainer.classList.add('d-flex');
     recordedAudioContainer.classList.remove('d-none');
 
@@ -139,11 +141,19 @@ function mediaRecorderStop() {
     discardButton.setAttribute('id', 'discardButton'); 
     discardButton.innerHTML = "Discard";
     recordedAudioContainer.appendChild(discardButton);
-
+  
+    // handle discard button click
     discardButton.addEventListener('click', discardRecording)
 
     //hide record button
     recordBtn.classList.add('d-none')
+
+    // completed recording action
+    // promptAudioElem.addEventListener('complete', () => {
+    //     getResponsebtn.click();
+    // });
+    // place tab focus on get response button.
+    // getResponsebtn.setAttribute('tabindex', '-1');
 
     //reset to default
     mediaRecorder = null;
@@ -222,4 +232,12 @@ function processInputPrompt(){
     
 }
 
-getResponsebtn.addEventListener('click', processInputPrompt)
+// response button click action
+getResponsebtn.addEventListener('click', processInputPrompt);
+
+// Return key press action
+queryInputText.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        getResponsebtn.click();
+    }
+});
