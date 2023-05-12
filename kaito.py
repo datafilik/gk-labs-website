@@ -4,7 +4,7 @@
 ########################################################################################
 import os
 import openai
-from pygpt4all import GPT4All
+# from pygpt4all import GPT4All
 # from pygpt4all.models.gpt4all import GPT4All
 from gtts import gTTS
 from dotenv import load_dotenv
@@ -43,14 +43,14 @@ def whisper_transcribe(file_name):
 #------------------------------------------------------------------------------------
 # functions using OpenAI API to generate reponse to user query
 #------------------------------------------------------------------------------------
-def get_prompt_response(prompt):
-  response = openai.Completion.create(engine="text-davinci-003",
-                                      prompt=prompt,
-                                      max_tokens=4000,
-                                      n=1,
-                                      stop=None,
-                                      temperature=0.5)
-  return response["choices"][0]["text"]
+# def get_prompt_response(prompt):
+#   response = openai.Completion.create(engine="text-davinci-003",
+#                                       prompt=prompt,
+#                                       max_tokens=4000,
+#                                       n=1,
+#                                       stop=None,
+#                                       temperature=0.5)
+#   return response["choices"][0]["text"]
 
 
 def get_chat_response(messages):
