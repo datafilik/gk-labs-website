@@ -1,9 +1,11 @@
 ########################################################################################
-# KAI - Utility for sourcing knowledge using AI.
-#       Base functions and utlities for KAI.
+# KAITO - Utility for sourcing knowledge using AI.
+#         Base functions and utlities for AI assistant KAITO.
 ########################################################################################
 import os
 import openai
+from pygpt4all import GPT4All
+# from pygpt4all.models.gpt4all import GPT4All
 from gtts import gTTS
 from dotenv import load_dotenv
 
@@ -23,7 +25,7 @@ msg_thread = [
     "role":
     "system",
     "content":
-    "you are a very knowlegable assistant. Explain concepts from first principles."
+    "You are a very knowlegable assistant called Kaito. Explain concepts from first principles."
   },
 ]
 
@@ -63,10 +65,35 @@ def get_transcript(msg_thread):
   chat_transcript = ""
   for message in msg_thread:
     if message["role"] != "system":
+      if message["role"] == "user":
+        message["role"].replace("user", "You")
+
+      if message["role"] == "assistant":
+        message["role"].replace("user", "Kaito")
+
       chat_transcript += message["role"] + \
           ": " + message["content"] + "\n\n"
 
+  # return formatted_chat_transcript
   return chat_transcript
+
+
+#------------------------------------------------------------------------------------
+#functions using PyGPT4All API to generate reponse to user query
+#------------------------------------------------------------------------------------
+def get_gpt4all_response(prompt):
+  model = GPT4All(
+    'http://gpt4all.io/models/ggml-gpt4all-l13b-snoozy.bin',  #'/static/ggml-gpt4all-l13b-snoozy.bin',
+    prompt_context=
+    "You are a very knowlegable assistant called Kaito. Explain concepts from first principles.",
+    prompt_prefix="\nYou: ",
+    prompt_suffix="\nKaito: ")
+
+  response = ""
+  for resp_token in model.generate(prompt):
+    #print(resp_token, end='', flush=True)
+    response += resp_token
+  return response
 
 
 #------------------------------------------------------------------------------------
@@ -79,7 +106,7 @@ def gTranslate_tts(text, audio_out_path):
 
 
 #------------------------------------------------------------------------------------------
-# main KAI routine for processing user input query
+# main KAITO routine for processing user input query
 #------------------------------------------------------------------------------------------
 def process_prompt(audio_in, text_in, audio_out):
   global msg_thread

@@ -219,17 +219,6 @@ python-versions = "*"
 test = ["numpy"]
 
 [[package]]
-name = "python-dotenv"
-version = "1.0.0"
-description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "main"
-optional = false
-python-versions = ">=3.8"
-
-[package.extras]
-cli = ["click (>=5.0)"]
-
-[[package]]
 name = "requests"
 version = "2.28.2"
 description = "Python HTTP for Humans."
@@ -349,7 +338,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "9181b07b67a62325d04be8c91ee502aa8c3fd04f205fcc200864a71a6d34a9af"
+content-hash = "50a5ad2a0634042cf609378d7a8c5176cb6bb31d11a7117bb69582d18af88514"
 
 [metadata.files]
 aiohttp = []
@@ -371,7 +360,6 @@ markupsafe = []
 multidict = []
 openai = []
 pyaudio = []
-python-dotenv = []
 requests = []
 sqlalchemy = []
 tqdm = []

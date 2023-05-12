@@ -9,7 +9,7 @@
     {% include 'header.html' %}
     
     <div class="container">
-        <div class="row">
+        <div class="row d-flex">
           <div class="col-md">
             <h1 class="display-2">KAITO</h1>
             <p class="lead"><span class="fw-bolder">K</span>nowledge-sourcing <span class="fw-bolder">AI To</span>ol</p>
@@ -17,17 +17,11 @@
         </div>
       
         <!--<form> -->
-        <div class="row align-items-start">
-          <div class="col-md-5">
-            <!-- <label for="qTextInput">Text Input:</label><br> -->
+        <div class="row d-flex justify-content-center">
+          <div class="input-group" style="width:70%;">
             <input type="text" class="form-control rounded-pill" id="qTextInput" name="qTextInput" placeholder="Type in your question" aria-describedby="inputGroup-sizing-lg" style="height:48px;">
-          </div>
-          
-          <div class="col-md-1 fs-5 text-center d-inline-block">OR</div>
-          
-          <div class="col-md-3">  
-            <!-- <label for="audioInput">Audio Input:</label><br> -->
-            <button type="button" class="btn btn-outline-dark btn-lg rounded-pill" id="audioInput" name="audioInput">
+            
+            <button type="button" class="btn btn-light btn-lg rounded-pill" id="audioInput" name="audioInput" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Record audio prompt." style="z-index: 100;">
               <div id="audioInputContent">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mic-fill text-danger" viewBox="0 0 16 16">
                       <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0V3z" />
@@ -35,25 +29,34 @@
                           d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5z" 
                       />
                   </svg>
-                  Record Prompt
+                  <!-- Record Prompt -->
               </div>
             </button>
-
+            
             <div class="d-none" id="recordedAudioContainer">
             </div>
-            <!-- <br><br> -->
+            
+            <button type="submit" class="btn btn-light btn-lg rounded-pill" id="getReponseBtn" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Get response to query." style="z-index: 100;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+              </svg>
+              <!-- Get Response -->
+            </button>
           </div>
-
-          <div class="col-md-3">
-            <!--<input type="submit" value="Get Response"> -->
-            <button type="submit" class="btn btn-dark btn-lg rounded-pill" id="getReponseBtn" >Get Response</button>
-          </div>
-        </div><br><br>
+        </div>
+    
+        <br><br>
       
-        <div class="row align-items-start">
+        <div class="row d-flex align-items-start">
           <div class="col-md-9"> 
-            <label for="textArea">Conversation Thread:</label><br>
-            <textarea class="form-control bg-dark-subtle" id="textArea" name="textArea" placeholder="Your conversation thread appears here" style="height: 400px;" readonly >{{transcript}}</textarea>
+            <label for="msgThreadArea">Conversation Thread:</label><br>
+            <textarea class="form-control bg-dark-subtle" id="msgThreadArea" name="msgThreadArea" style="height:400px !important;" placeholder="Your conversation thread appears here" readonly >{{transcript}}</textarea>
+            <!-- <p class="form-control bg-dark-subtle typewriter-anim" id="msgThreadArea">
+              {{ transcript }}
+              {% for msgChar in transcript%}
+                {{msgChar}}
+              {% endfor %}
+            </p> -->
             <br><br>
           </div>
 

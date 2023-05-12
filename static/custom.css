@@ -1,0 +1,14 @@
+/* Typewriter effect animation */
+.typewriter-anim{
+  animation: typing 4s steps(100, end);
+}
+
+@keyframes typing {
+  from{width: 0;}
+  to{width: 100%;}
+}
+
+/* @keyframes blinkTextCursor{
+  from{border-right-color: rgba(255,255,255,.75);}
+  to{border-right-color: transparent;}
+} */
