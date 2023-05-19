@@ -5,7 +5,7 @@
 import os
 import openai
 import gpt4all
-import pygpt4all
+# import pygpt4all
 from gtts import gTTS
 from dotenv import load_dotenv
 
@@ -90,22 +90,22 @@ def get_gpt4all_response(messages, llm_model_dir_path=None):
   return response["choices"][0]["message"]["content"]
 
 # NOTE:Old and may no longer be maintained
-def get_pygpt4all_response(prompt, llm_model_dir_path):
-  llm_file =  "ggml-gpt4all-l13b-snoozy.bin" #"ggml-gpt4all-j-v1.3-groovy.bin"
-  model_file_path=os.path.join(llm_model_dir_path, llm_file)
+# def get_pygpt4all_response(prompt, llm_model_dir_path):
+#   llm_file =  "ggml-gpt4all-l13b-snoozy.bin" #"ggml-gpt4all-j-v1.3-groovy.bin"
+#   model_file_path=os.path.join(llm_model_dir_path, llm_file)
 
-  model = pygpt4all.GPT4All(
-      model_path=model_file_path,
-      prompt_context=
-      "You are a very knowlegable assistant called Kaito. When queried, explain concepts and answers based on first principles approach.",
-      prompt_prefix="\nuser: ",
-      prompt_suffix="\nassistant: ")
+#   model = pygpt4all.GPT4All(
+#       model_path=model_file_path,
+#       prompt_context=
+#       "You are a very knowlegable assistant called Kaito. When queried, explain concepts and answers based on first principles approach.",
+#       prompt_prefix="\nuser: ",
+#       prompt_suffix="\nassistant: ")
 
-  response = ""
-  for resp_token in model.generate(prompt):
-    #print(resp_token, end='', flush=True)
-    response += resp_token
-  return response
+#   response = ""
+#   for resp_token in model.generate(prompt):
+#     #print(resp_token, end='', flush=True)
+#     response += resp_token
+#   return response
 
 
 #------------------------------------------------------------------------------------
