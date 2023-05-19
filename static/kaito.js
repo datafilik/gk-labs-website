@@ -125,7 +125,7 @@ function mediaRecorderStop() {
 
     // if audio recorded, disable text input
     if (audioBlob != null){
-        queryInputText.setAttribute('readonly','')
+        queryInputText.setAttribute('readonly','');
     }
     
 
@@ -138,22 +138,22 @@ function mediaRecorderStop() {
     const discardButton = document.createElement("button");
     discardButton.setAttribute('class', 'btn btn-danger rounded-pill'); 
     discardButton.setAttribute('id', 'discardButton'); 
-    discardButton.setAttribute('data-bs-toggle', 'tooltip')
-    discardButton.setAttribute('data-bs-placement', 'top')
-    discardButton.setAttribute('data-bs-title', 'Delete recorded audio.')
-    discardButton.setAttribute('style', 'z-index: 100;')
+    discardButton.setAttribute('data-bs-toggle', 'tooltip');
+    discardButton.setAttribute('data-bs-placement', 'top');
+    discardButton.setAttribute('data-bs-title', 'Delete recorded audio.');
+    discardButton.setAttribute('style', 'z-index: 100;');
     // discardButton.innerHTML = "Discard";
     discardButton.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
      <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
-    </svg>`
+    </svg>`;
     recordedAudioContainer.appendChild(discardButton);
   
     // handle discard button click
-    discardButton.addEventListener('click', discardRecording)
+    discardButton.addEventListener('click', discardRecording);
 
     //hide record button
-    recordBtn.classList.add('d-none')
+    recordBtn.classList.add('d-none');
 
     // completed recording action
     // promptAudioElem.addEventListener('complete', () => {
@@ -180,34 +180,35 @@ function discardRecording() {
   audioBlob = null;
 
   // display record button
-  recordBtn.classList.remove('d-none')
+  recordBtn.classList.remove('d-none');
 
   // activate query text input 
-  queryInputText.removeAttribute('readonly')
-};
+  queryInputText.removeAttribute('readonly');
+}
 
 //----------------------------------------------------------------------
 // input query processing functions
 //----------------------------------------------------------------------
-async function postPromptData(data) {
-  const response = await fetch("/resources/kaito/prompt_processor", {
-    method: "POST",
-    body: data,
-  })
+function postPromptData(data) {
+    // HTTP request by AJAX call using Fetch
+    fetch("/resources/kaito/prompt_processor", {
+        method: "POST",
+        body: data,
+    }).then(response => {
 
-  if (!response.ok) {
-    throw new Error(`Request failed with status ${reponse.status}`)
-  }
+        if (response.ok) {
+            getResponsebtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+                </svg>`;
 
-  // getResponsebtn.innerHTML = `Get Response`;
-  getResponsebtn.innerHTML = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
-  </svg>`;
-  
-  getResponsebtn.removeAttribute('disabled','');
-  window.location.reload(true) // reload page to reflect new data
-  return response;
+            getResponsebtn.removeAttribute('disabled', '');
+            // window.location.reload(true) // reload page to reflect new data
+        } else {
+            throw new Error(`Request failed with status ${reponse.status}`);
+        }
+
+    }).catch(err => console.log(err));
 }
 
 
@@ -234,11 +235,9 @@ function processInputPrompt(){
       getResponsebtn.setAttribute('disabled','');
 
       // send request
-      //const request = new XMLHttpRequest();
-      //request.open('POST', '/resources/kai/query_processor');
-      //request.send(formData);
-      const response = postPromptData(formData);
-      //console.log(response);
+      postPromptData(formData);
+      //const response = postPromptData(formData);
+      //console.log(response);  
   }
     
 }

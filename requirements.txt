@@ -3,6 +3,8 @@ gunicorn
 sqlalchemy
 pymysql
 openai
+pygpt4all
+gpt4all
 gTTS
 python-dotenv
 pygame

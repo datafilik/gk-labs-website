@@ -1,10 +1,19 @@
 import os
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
 
-host = os.getenv("DB_HOST")
-user = os.getenv("DB_USERNAME")
-passwd = os.getenv("DB_PASSWORD")
-db_name = os.getenv("DB_NAME")
+# load environment variable from .env file
+load_dotenv()
+
+# host = os.getenv("DB_HOST")
+# user = os.getenv("DB_USERNAME")
+# passwd = os.getenv("DB_PASSWORD")
+# db_name = os.getenv("DB_NAME")
+
+host = os.environ["DB_HOST"]
+user = os.environ["DB_USERNAME"]
+passwd = os.environ["DB_PASSWORD"]
+db_name = os.environ["DB_NAME"]
 
 db_connection_uri = "mysql+pymysql://{}:{}@{}/{}?charset=utf8mb4".format(
   user, passwd, host, db_name)

@@ -4,8 +4,8 @@
 ########################################################################################
 import os
 import openai
-# from pygpt4all import GPT4All
-# from pygpt4all.models.gpt4all import GPT4All
+import gpt4all
+import pygpt4all
 from gtts import gTTS
 from dotenv import load_dotenv
 
@@ -25,7 +25,7 @@ msg_thread = [
     "role":
     "system",
     "content":
-    "You are a very knowlegable assistant called Kaito. Explain concepts from first principles."
+    "You are a very knowlegable assistant called Kaito. When queried, explain concepts and answers based on first principles approach."
   },
 ]
 
@@ -43,14 +43,14 @@ def whisper_transcribe(file_name):
 #------------------------------------------------------------------------------------
 # functions using OpenAI API to generate reponse to user query
 #------------------------------------------------------------------------------------
-# def get_prompt_response(prompt):
-#   response = openai.Completion.create(engine="text-davinci-003",
-#                                       prompt=prompt,
-#                                       max_tokens=4000,
-#                                       n=1,
-#                                       stop=None,
-#                                       temperature=0.5)
-#   return response["choices"][0]["text"]
+def get_prompt_response(prompt):
+  response = openai.Completion.create(engine="text-davinci-003",
+                                      prompt=prompt,
+                                      max_tokens=4000,
+                                      n=1,
+                                      stop=None,
+                                      temperature=0.5)
+  return response["choices"][0]["text"]
 
 
 def get_chat_response(messages):
@@ -79,15 +79,27 @@ def get_transcript(msg_thread):
 
 
 #------------------------------------------------------------------------------------
-#functions using PyGPT4All API to generate reponse to user query
+#functions using GPT4All API to generate reponse to user query
 #------------------------------------------------------------------------------------
-def get_gpt4all_response(prompt):
-  model = GPT4All(
-    'http://gpt4all.io/models/ggml-gpt4all-l13b-snoozy.bin',  #'/static/ggml-gpt4all-l13b-snoozy.bin',
-    prompt_context=
-    "You are a very knowlegable assistant called Kaito. Explain concepts from first principles.",
-    prompt_prefix="\nYou: ",
-    prompt_suffix="\nKaito: ")
+def get_gpt4all_response(messages, llm_model_dir_path=None):
+  model = gpt4all.GPT4All(
+      model_name="ggml-gpt4all-l13b-snoozy", #"ggml-gpt4all-j-v1.3-groovy.bin",
+      model_path=llm_model_dir_path)
+  
+  response = model.chat_completion(messages)
+  return response["choices"][0]["message"]["content"]
+
+# NOTE:Old and may no longer be maintained
+def get_pygpt4all_response(prompt, llm_model_dir_path):
+  llm_file =  "ggml-gpt4all-l13b-snoozy.bin" #"ggml-gpt4all-j-v1.3-groovy.bin"
+  model_file_path=os.path.join(llm_model_dir_path, llm_file)
+
+  model = pygpt4all.GPT4All(
+      model_path=model_file_path,
+      prompt_context=
+      "You are a very knowlegable assistant called Kaito. When queried, explain concepts and answers based on first principles approach.",
+      prompt_prefix="\nuser: ",
+      prompt_suffix="\nassistant: ")
 
   response = ""
   for resp_token in model.generate(prompt):
@@ -108,7 +120,7 @@ def gTranslate_tts(text, audio_out_path):
 #------------------------------------------------------------------------------------------
 # main KAITO routine for processing user input query
 #------------------------------------------------------------------------------------------
-def process_prompt(audio_in, text_in, audio_out):
+def process_prompt(audio_in, text_in, audio_out, llm_path=None):
   global msg_thread
   transcript = ''
 
@@ -124,7 +136,15 @@ def process_prompt(audio_in, text_in, audio_out):
     msg_thread.append({"role": "user", "content": transcript})
 
     # get GPT-3 response
-    latest_resp = get_chat_response(msg_thread)
+    # latest_resp = get_chat_response(msg_thread)
+    
+    if llm_path != None:
+      # GPT4All response
+      # latest_resp = get_pygpt4all_response(transcript, llm_path)
+      latest_resp = get_gpt4all_response(msg_thread, llm_path)   
+    else:
+      # get GPT-3 response
+      latest_resp = get_chat_response(msg_thread)
 
     # read out response
     gTranslate_tts(latest_resp, audio_out)

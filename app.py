@@ -6,7 +6,7 @@ import os
 
 gkLabsApp = Flask(__name__)
 # limit the maximum allowed payload to 16 megabytes
-gkLabsApp.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+# gkLabsApp.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 
 jobs = load_jobs_from_db()  # job list
 
@@ -67,8 +67,15 @@ def kaito_process_prompt():
         file.save(audio_prompt_path)
 
     # get AI response to either text or audio prompt
-    convo_text = process_prompt(audio_prompt_path, text_prompt,
-                                audio_resp_path)
+    # llm_filename = "ggml-gpt4all-l13b-snoozy.bin"
+    # model_path = os.path.join(gkLabsApp.static_folder, llm_filename)
+    model_dir_path = None #os.path.normpath(gkLabsApp.static_folder) #None
+    convo_text = process_prompt(audio_in=audio_prompt_path, 
+                                text_in=text_prompt,
+                                audio_out=audio_resp_path, 
+                                llm_path=model_dir_path)
+    # convo_text = process_prompt(audio_prompt_path, text_prompt,
+    #                             audio_resp_path)
 
   return redirect(url_for('kaito_home'))
 
