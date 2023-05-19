@@ -203,7 +203,7 @@ function postPromptData(data) {
                 </svg>`;
 
             getResponsebtn.removeAttribute('disabled', '');
-            // window.location.reload(true) // reload page to reflect new data
+            window.location.reload(true) // reload page to reflect new data. Temp for cases where AJAX seem not be working
         } else {
             throw new Error(`Request failed with status ${reponse.status}`);
         }
