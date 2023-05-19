@@ -4,7 +4,7 @@
 ########################################################################################
 import os
 import openai
-import gpt4all
+# import gpt4all
 # import pygpt4all
 from gtts import gTTS
 from dotenv import load_dotenv
@@ -81,13 +81,13 @@ def get_transcript(msg_thread):
 #------------------------------------------------------------------------------------
 #functions using GPT4All API to generate reponse to user query
 #------------------------------------------------------------------------------------
-def get_gpt4all_response(messages, llm_model_dir_path=None):
-  model = gpt4all.GPT4All(
-      model_name="ggml-gpt4all-l13b-snoozy", #"ggml-gpt4all-j-v1.3-groovy.bin",
-      model_path=llm_model_dir_path)
+# def get_gpt4all_response(messages, llm_model_dir_path=None):
+#   model = gpt4all.GPT4All(
+#       model_name="ggml-gpt4all-l13b-snoozy", #"ggml-gpt4all-j-v1.3-groovy.bin",
+#       model_path=llm_model_dir_path)
   
-  response = model.chat_completion(messages)
-  return response["choices"][0]["message"]["content"]
+#   response = model.chat_completion(messages)
+#   return response["choices"][0]["message"]["content"]
 
 # NOTE:Old and may no longer be maintained
 # def get_pygpt4all_response(prompt, llm_model_dir_path):
