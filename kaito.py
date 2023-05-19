@@ -136,15 +136,16 @@ def process_prompt(audio_in, text_in, audio_out, llm_path=None):
     msg_thread.append({"role": "user", "content": transcript})
 
     # get GPT-3 response
-    # latest_resp = get_chat_response(msg_thread)
-    
-    if llm_path != None:
-      # GPT4All response
-      # latest_resp = get_pygpt4all_response(transcript, llm_path)
-      latest_resp = get_gpt4all_response(msg_thread, llm_path)   
-    else:
-      # get GPT-3 response
+    if llm_path == None:
       latest_resp = get_chat_response(msg_thread)
+    
+    # if llm_path != None:
+    #   # GPT4All response
+    #   # latest_resp = get_pygpt4all_response(transcript, llm_path)
+    #   latest_resp = get_gpt4all_response(msg_thread, llm_path)   
+    # else:
+    #   # get GPT-3 response
+    #   latest_resp = get_chat_response(msg_thread)
 
     # read out response
     gTranslate_tts(latest_resp, audio_out)
