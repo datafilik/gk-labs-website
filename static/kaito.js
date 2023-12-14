@@ -189,7 +189,7 @@ function discardRecording() {
 //----------------------------------------------------------------------
 // input query processing functions
 //----------------------------------------------------------------------
-function postPromptData(data) {
+async function postPromptData(data) {
     // HTTP request by AJAX call using Fetch
     fetch("/resources/kaito/prompt_processor", {
         method: "POST",
@@ -203,7 +203,8 @@ function postPromptData(data) {
                 </svg>`;
 
             getResponsebtn.removeAttribute('disabled', '');
-            window.location.reload(true) // reload page to reflect new data. Temp for cases where AJAX seem not be working
+            // window.location.reload(true) // reload page to reflect new data. Temp for cases where AJAX seem not be working
+            // $("#msgThreadArea").load("/resources/kaito/prompt_processor" );
         } else {
             throw new Error(`Request failed with status ${reponse.status}`);
         }
