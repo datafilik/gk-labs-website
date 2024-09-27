@@ -2,7 +2,6 @@ Flask
 gunicorn
 sqlalchemy
 pymysql
-jiter
 openai
 gTTS
 python-dotenv
