@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 # from database import load_job_from_db, add_application_to_db
 from database import load_jobs_from_db
-from kaito import process_prompt
+# from kaito import process_prompt
 import os
 
 gkLabsApp = Flask(__name__)
@@ -28,57 +28,57 @@ def resources():
 
 
 # for transcript text
-convo_text = ''
+# convo_text = ''
 
-@gkLabsApp.route("/resources/kaito", methods=['GET'])
-def kaito_home():
-  global convo_text
+# @gkLabsApp.route("/resources/kaito", methods=['GET'])
+# def kaito_home():
+#   global convo_text
 
-  return render_template(
-    'kaito.html',
-    transcript=convo_text,
-  )
+#   return render_template(
+#     'kaito.html',
+#     transcript=convo_text,
+#   )
 
 
-@gkLabsApp.route("/resources/kaito/prompt_processor", methods=['POST'])
-def kaito_process_prompt():
+# @gkLabsApp.route("/resources/kaito/prompt_processor", methods=['POST'])
+# def kaito_process_prompt():
 
-  global convo_text
+#   global convo_text
 
-  if request.method == 'POST':
-    # prompt handles
-    audio_prompt_path = ''
-    text_prompt = ''
-    # path to audio response
-    audio_resp_path = os.path.join(gkLabsApp.static_folder, "out.mp3")
+#   if request.method == 'POST':
+#     # prompt handles
+#     audio_prompt_path = ''
+#     text_prompt = ''
+#     # path to audio response
+#     audio_resp_path = os.path.join(gkLabsApp.static_folder, "out.mp3")
 
-    # get prompt
-    if len(request.form.getlist('text')):
-      # other text prompt
-      text_prompt = request.form.getlist('text')  #list
-      #text_prompt = request.form.get('text')
-    else:
-      # get audio prompt
-      file = request.files['audio']
+#     # get prompt
+#     if len(request.form.getlist('text')):
+#       # other text prompt
+#       text_prompt = request.form.getlist('text')  #list
+#       #text_prompt = request.form.get('text')
+#     else:
+#       # get audio prompt
+#       file = request.files['audio']
 
-      if file:
-        audiofilename = secure_filename(file.filename)
-        audio_prompt_path = os.path.join(gkLabsApp.static_folder,
-                                         audiofilename)
-        file.save(audio_prompt_path)
+#       if file:
+#         audiofilename = secure_filename(file.filename)
+#         audio_prompt_path = os.path.join(gkLabsApp.static_folder,
+#                                          audiofilename)
+#         file.save(audio_prompt_path)
 
-    # get AI response to either text or audio prompt
-    # llm_filename = "ggml-gpt4all-l13b-snoozy.bin"
-    # model_path = os.path.join(gkLabsApp.static_folder, llm_filename)
-    model_dir_path = None #os.path.normpath(gkLabsApp.static_folder) #None
-    convo_text = process_prompt(audio_in=audio_prompt_path, 
-                                text_in=text_prompt,
-                                audio_out=audio_resp_path, 
-                                llm_path=model_dir_path)
-    # convo_text = process_prompt(audio_prompt_path, text_prompt,
-    #                             audio_resp_path)
+#     # get AI response to either text or audio prompt
+#     # llm_filename = "ggml-gpt4all-l13b-snoozy.bin"
+#     # model_path = os.path.join(gkLabsApp.static_folder, llm_filename)
+#     model_dir_path = None #os.path.normpath(gkLabsApp.static_folder) #None
+#     convo_text = process_prompt(audio_in=audio_prompt_path, 
+#                                 text_in=text_prompt,
+#                                 audio_out=audio_resp_path, 
+#                                 llm_path=model_dir_path)
+#     # convo_text = process_prompt(audio_prompt_path, text_prompt,
+#     #                             audio_resp_path)
 
-  return redirect(url_for('kaito_home'))
+#   return redirect(url_for('kaito_home'))
 
 
 @gkLabsApp.route("/about")
