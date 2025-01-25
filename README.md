@@ -1,6 +1,6 @@
-# A Flask framework based website
+# Gutenkraft site
 
-Codebase uses Flask framework.
+Codebase for Gutenkraft website. Built on Flask framework.
 
 # Install app dependencies
 
