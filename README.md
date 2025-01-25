@@ -1,8 +1,8 @@
 # A Flask framework based website
 
-Codebase uses Flask Framework
+Codebase uses Flask framework.
 
-# install app dependencies
+# Install app dependencies
 
 Run the command ```pip install -r requirements.txt ```.
 
@@ -10,13 +10,13 @@ Run the command ```pip install -r requirements.txt ```.
 
 Use the template in ```.env.example ``` to create a ```.env``` file at the directory root mostly for development environment. Same variables and value can be filled as environment secrets for hosting platform used.
 
-# Start Application
+# Start up Application
 
-## In development  environment 
+### In development  environment 
 
 Run the command ``` Flask run ```.
 
-## For production environment 
+### For production environment 
 
 Use WSGI server Gunicorn. Find more details at https://flask.palletsprojects.com/en/stable/deploying/gunicorn/
 
